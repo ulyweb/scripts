@@ -12,18 +12,17 @@ if (-not (Test-IsAdmin)) {
     $psi.Arguments = "-NoExit -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`""
     $psi.Verb = "runas"
     [System.Diagnostics.Process]::Start($psi) | Out-Null
-    exit
+    return
 }
 
 # Prompt user for source paths
-$CurrentlogUser = $env:USERNAME
 Write-Host "Enter the full path(s) to the folders you want to back up."
 Write-Host "If you have multiple locations, separate them with a semicolon (;)."
-Write-Host "Example: C:\Users\$CurrentlogUser\Documents;C:\Users\$CurrentlogUser\Downloads;C:\Users\$CurrentlogUser\Desktop"
+Write-Host "Example: C:\Docs;D:\Projects"
 $sourceInput = Read-Host "Enter source folder path(s)"
 if ([string]::IsNullOrWhiteSpace($sourceInput)) {
     Write-Host "No source path entered. Exiting." -ForegroundColor Red
-    exit
+    return
 }
 
 # Split input into array of paths
@@ -42,9 +41,11 @@ if (-not (Test-Path -Path $DestinationPath)) {
 
 # Start logging
 $logFile = "$env:TEMP\BoxBackupLog_$(Get-Date -Format 'yyyyMMddHHmmss').txt"
-Start-Transcript -Path $logFile
-
+$transcriptStarted = $false
 try {
+    Start-Transcript -Path $logFile
+    $transcriptStarted = $true
+
     $totalFiles = 0
     $totalSize = 0
     $allFiles = @()
@@ -64,8 +65,7 @@ try {
 
     if ($totalFiles -eq 0) {
         Write-Host "No files found in the specified source path(s)." -ForegroundColor Yellow
-        Stop-Transcript
-        exit
+        return
     }
 
     # Display total size
@@ -76,8 +76,7 @@ try {
     $confirm = Read-Host "Are you sure you want to start copying to Box? (Y/N)"
     if ($confirm -notin @('Y', 'y')) {
         Write-Host "Backup cancelled by user." -ForegroundColor Red
-        Stop-Transcript
-        exit
+        return
     }
 
     $currentFile = 0
@@ -85,7 +84,6 @@ try {
     foreach ($file in $allFiles) {
         $currentFile++
 
-        # Find source base for current file
         $srcBase = $SourcePaths | Where-Object { $file.FullName.ToLower().StartsWith((Resolve-Path $_).Path.ToLower()) } | Select-Object -First 1
         if (-not $srcBase) {
             Write-Warning "Skipping file (source base not found): $($file.FullName)"
@@ -102,12 +100,10 @@ try {
         $destFile = Join-Path -Path $DestinationPath -ChildPath $relativePath
         $destDir = [System.IO.Path]::GetDirectoryName($destFile)
 
-        # Create destination directory if needed
         if (-not (Test-Path $destDir)) {
             New-Item -Path $destDir -ItemType Directory -Force | Out-Null
         }
 
-        # Copy with hash verification and retry
         $maxRetries = 3
         $retry = 0
         $success = $false
@@ -145,7 +141,13 @@ catch {
 }
 finally {
     Write-Progress -Activity "Backing Up Files" -Completed
-    Stop-Transcript
+    if ($transcriptStarted) {
+        try {
+            Stop-Transcript
+        } catch {
+            Write-Warning "Transcript already stopped or failed to stop cleanly."
+        }
+    }
     Write-Host "`nBackup completed. Backup location:" -ForegroundColor Cyan
     Write-Host $DestinationPath -ForegroundColor Yellow
     Write-Host "Log file: $logFile" -ForegroundColor Gray
