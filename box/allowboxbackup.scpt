@@ -1,5 +1,6 @@
--- Ask for source folders
-set sourceFolders to choose folders with prompt "Select one or more folders to back up:" with multiple selections allowed
+-- Ask for one source folder
+set sourceFolder to choose folder with prompt "Select the folder to back up:"
+set sourceFolders to {sourceFolder}
 
 -- Define backup root and folder name
 set homePath to (POSIX path of (path to home folder))
@@ -36,7 +37,7 @@ set totalSizeMB to (totalSize / 1024 / 1024)
 set roundedSize to ((round (totalSizeMB * 100)) / 100)
 
 -- Confirm with user
-set theResponse to display dialog "Total files: " & totalFiles & return & "Total size: " & roundedSize & " MB" & return & return & "Start copying to Box?" buttons {"Cancel", "Yes"} default button "Yes"
+set theResponse to display dialog "Total files: " & totalFiles & return & "Total size: " & roundedSize & " MB" & return & return & "Start copying to iCloud?" buttons {"Cancel", "Yes"} default button "Yes"
 if button returned of theResponse is "Cancel" then
 	display dialog "Backup cancelled." buttons {"OK"} default button "OK"
 	return
@@ -44,8 +45,8 @@ end if
 
 -- Start copying files
 repeat with originalFile in fileList
-	-- Make destination path
-	set relPath to do shell script "python3 -c \"import os; print(os.path.relpath(" & quoted form of originalFile & ", " & quoted form of homePath & "))\""
+	-- Make destination path relative to sourceFolder
+	set relPath to do shell script "python3 -c \"import os; print(os.path.relpath(" & quoted form of originalFile & ", " & quoted form of folderPath & "))\""
 	set fullDestPath to destinationPath & "/" & relPath
 	set destDir to do shell script "dirname " & quoted form of fullDestPath
 	
