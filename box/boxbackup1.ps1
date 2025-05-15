@@ -102,4 +102,3 @@ finally {
     Write-Host $DestinationPath -ForegroundColor Yellow
     Write-Host "Log file: $logFile" -ForegroundColor Gray
 }
-boot
