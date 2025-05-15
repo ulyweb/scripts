@@ -17,8 +17,10 @@ $BoxDriveRoot = "C:\Users\$CurrentUser\Box\01. My Personal Folder\recentBackup"
 $BackupFolderName = "Backup_$(Get-Date -Format 'yyyy-MM-dd_HHmm')"
 $DestinationPath = Join-Path -Path $BoxDriveRoot -ChildPath $BackupFolderName
 
-# Create destination backup folder
-New-Item -Path $DestinationPath -ItemType Directory -Force | Out-Null
+# Create destination backup folder if it doesn't exist
+if (-not (Test-Path -Path $DestinationPath)) {
+    New-Item -Path $DestinationPath -ItemType Directory -Force | Out-Null
+}
 
 # Start logging
 $logFile = "$env:TEMP\BoxBackupLog_$(Get-Date -Format 'yyyyMMddHHmmss').txt"
@@ -47,13 +49,20 @@ try {
 
     foreach ($file in $allFiles) {
         $currentFile++
-        # Find which source path this file belongs to
-        $srcBase = $SourcePaths | Where-Object { $file.FullName.StartsWith($_) } | Select-Object -First 1
+
+        # Find the source base path this file belongs to (case-insensitive match)
+        $srcBase = $SourcePaths | Where-Object { $file.FullName.ToLower().StartsWith($_.ToLower()) } | Select-Object -First 1
+        if (-not $srcBase) {
+            Write-Warning "Unable to determine base path for file: $($file.FullName)"
+            continue
+        }
+
+        # Build the relative path
         $relativePath = $file.FullName.Substring($srcBase.Length).TrimStart('\')
         $destFile = Join-Path -Path $DestinationPath -ChildPath $relativePath
         $destDir = [System.IO.Path]::GetDirectoryName($destFile)
 
-        # Create destination directory if needed
+        # Create destination directory if it doesn't exist
         if (-not (Test-Path $destDir)) {
             New-Item -Path $destDir -ItemType Directory -Force | Out-Null
         }
