@@ -16,9 +16,10 @@ if (-not (Test-IsAdmin)) {
 }
 
 # Prompt user for source paths
+$CurrentlogUser = $env:USERNAME
 Write-Host "Enter the full path(s) to the folders you want to back up."
 Write-Host "If you have multiple locations, separate them with a semicolon (;)."
-Write-Host "Example: C:\Docs;D:\Projects"
+Write-Host "Example: C:\Users\$CurrentlogUser\Documents;C:\Users\$CurrentlogUser\Downloads;C:\Users\$CurrentlogUser\Desktop"
 $sourceInput = Read-Host "Enter source folder path(s)"
 if ([string]::IsNullOrWhiteSpace($sourceInput)) {
     Write-Host "No source path entered. Exiting." -ForegroundColor Red
