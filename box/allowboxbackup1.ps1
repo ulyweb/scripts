@@ -53,7 +53,9 @@ try {
             Write-Warning "Source path does not exist: $src"
             continue
         }
-        $files = Get-ChildItem -Path $src -Recurse -File
+
+        $fullPath = (Resolve-Path $src).Path
+        $files = Get-ChildItem -Path $fullPath -Recurse -File
         $allFiles += $files
         $totalFiles += $files.Count
         $totalSize += ($files | Measure-Object -Property Length -Sum).Sum
@@ -82,9 +84,20 @@ try {
     foreach ($file in $allFiles) {
         $currentFile++
 
-        # Find which source path this file belongs to
-        $srcBase = $SourcePaths | Where-Object { $file.FullName.StartsWith($_) } | Select-Object -First 1
-        $relativePath = $file.FullName.Substring($srcBase.Length).TrimStart('\')
+        # Find source base for current file
+        $srcBase = $SourcePaths | Where-Object { $file.FullName.ToLower().StartsWith((Resolve-Path $_).Path.ToLower()) } | Select-Object -First 1
+        if (-not $srcBase) {
+            Write-Warning "Skipping file (source base not found): $($file.FullName)"
+            continue
+        }
+
+        $srcBaseResolved = (Resolve-Path $srcBase).Path
+        $relativePath = $file.FullName.Substring($srcBaseResolved.Length).TrimStart('\')
+        if ($relativePath -match "^[A-Za-z]:\\") {
+            Write-Warning "Skipping invalid relative path: $relativePath"
+            continue
+        }
+
         $destFile = Join-Path -Path $DestinationPath -ChildPath $relativePath
         $destDir = [System.IO.Path]::GetDirectoryName($destFile)
 
