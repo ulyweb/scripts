@@ -75,9 +75,6 @@ If you want a custom icon for branding, I can help generate a `.ico` for you.
 ---
 
 
-
-Thanks for sharing the error — the issue is clear:
-
 ### ❌ Root Cause:
 
 The error is:
@@ -132,7 +129,4 @@ Invoke-ps2exe -InputFile "C:\VSC\draft\User-Backup2box.ps1" `
 If you really want an icon from `shell32.dll`, you'd first extract it into an `.ico` file using a tool like **IcoFX** or **Resource Hacker**, and then pass that `.ico` file to `-IconFile`.
 
 ---
-
-Would you like me to generate a custom `.ico` file for your backup tool and share it as a download?
-
 
