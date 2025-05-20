@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+📝 How to Use This Script
+Save the script as Backup2Box.ps1.
+Launch it by right-clicking → Run with PowerShell, or run it directly in pwsh or powershell.
+Step 1: You can either:
+Use "Add Folder" to pick one folder at a time.
+Paste paths into the multiline box and click "Add Manual Path(s)".
+Use "Remove Selected Folder" to remove.
+Click "Preview Backup Summary" to view each folder’s size and total.
+Click "Start Backup" to perform the backup.
+Click "View Backup Log" to open the log.
+Click "Exit" to close.
+
+✅ Shows the current user's profile path and name at the top.
+✅ Displays the size of each selected folder.
+✅ Shows the combined total size at the bottom.
+✅ Keeps all previous functionality: adding/removing folders, preview, backup, logging, exit.
+#>
+
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
