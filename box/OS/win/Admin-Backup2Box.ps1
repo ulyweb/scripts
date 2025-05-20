@@ -1,4 +1,5 @@
-# Backup_your_data_to_box.ps1
+# Require Admin Elevate Privileges to run
+# Admin-Backup2box.ps1
 # Description: Backs up specified user folders to Box.com under '01. My Personal Folder\recentBackup'.
 
 # Function to check if the script is running with administrative privileges
