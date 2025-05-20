@@ -4,7 +4,14 @@ These guide provides collective scripts to easily run commands allow for direct 
 
 > [!NOTE]
 > ### Terminal & Powershell
-> 
+
+> [!TIP]
+> ### 🛠️ Execution Policy Considerations
+> #### To ensure the script runs without execution policy restrictions, you can set the execution policy to RemoteSigned or Bypass. This can be done by running the following command in an elevated PowerShell session:
+````
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+
+````
 
 ### Backup your data to Box.com
 ````
