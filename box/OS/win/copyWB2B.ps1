@@ -10,7 +10,7 @@ if (-not (Test-Path -Path $IT_folder)) {
 }
 
 # Define script URL and local path
-$scriptUrl = "https://github.com/ulyweb/scripts/blob/main/box/OS/win/winBackup2box.ps1"
+$scriptUrl = "https://raw.githubusercontent.com/ulyweb/scripts/refs/heads/main/box/OS/win/winBackup2box.ps1"
 $localScriptPath = Join-Path $IT_folder "winBackup2box.ps1"
 
 # Download the winBackup2box.ps1 script
