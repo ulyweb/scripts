@@ -12,7 +12,7 @@
 > >#### ***Press Windows Key + R***
 >
 >````
->powershell -Command "Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"irm "https://github.com/ulyweb/scripts/blob/main/box/OS/win/winBackup2box.ps1" | iex"' -Verb RunAs"
+>powershell -Command "Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"irm https://raw.githubusercontent.com/ulyweb/scripts/refs/heads/main/box/OS/win/copyWB2B.ps1 | iex\"' -Verb RunAs"
 >````
 
 
