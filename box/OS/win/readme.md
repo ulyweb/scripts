@@ -7,6 +7,19 @@
 >````
 
 
+>[!TIP]
+>### Run me directly from Windows run command.
+> >#### ***Press Windows Key + R***
+>
+>````
+>powershell -Command "Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"irm "https://github.com/ulyweb/scripts/blob/main/box/OS/win/winBackup2box.ps1" | iex"' -Verb RunAs"
+>````
+
+
+
+
+
+
 
 
 >[!Note]
