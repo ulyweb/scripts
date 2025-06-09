@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uly's Toolbox</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    header {
+      background: #0078d7;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      animation: slideIn 1.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 1rem 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background: #005a9e;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Uly's Toolbox</h1>
+  </header>
+  <main>
+    <p>This is a curated collection of automation tools and scripts built by Uly to help users back up and organize data using Box cloud storage.</p>
+
+    <h2>Available Downloads</h2>
+
+    <!-- Button to run PowerShell for WinBackup2Box -->
+    <button class="button" onclick="runBackupScript()">Run WinBackup2Box Installer</button>
+
+    <!-- Static link for macOS download -->
+    <a href="https://github.com/ulyweb/scripts/raw/3f67adda7505ff7d79fe09d6a219c5f86b82eb7d/box/OS/mac/Backup%20Your%20Data%20to%20Box.app.zip" class="button" download>
+      Download "Backup Your Data to Box.app"
+    </a>
+
+    <script>
+      function runBackupScript() {
+        const command = `powershell -Command "Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \\"irm https://raw.githubusercontent.com/ulyweb/scripts/refs/heads/main/box/OS/win/copyWB2B.ps1 | iex\\"' -Verb RunAs"`;
+        try {
+          new ActiveXObject("WScript.Shell").Run(command, 1, false);
+        } catch (e) {
+          alert("To auto-run the backup installer, please save this webpage and open it in Internet Explorer or run it as a local HTML file in Windows with ActiveX enabled.");
+        }
+      }
+    </script>
+
+    <p>For help, contact <a href="mailto:support@ulynetwork.com">support@ulynetwork.com</a>.</p>
+  </main>
+  <footer>
+    &copy; 2025 Uly Network. All rights reserved.
+  </footer>
+</body>
+</html>
