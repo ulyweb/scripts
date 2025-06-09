@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UlyWeb Scripts Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7fa;
+      color: #333;
+    }
+
+    header {
+      background-color: #004a99;
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    main {
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    section.intro {
+      margin-bottom: 2rem;
+    }
+
+    section.intro p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    section.downloads h2 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    ul.file-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul.file-list li {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    ul.file-list li a {
+      text-decoration: none;
+      color: #004a99;
+      font-weight: bold;
+    }
+
+    ul.file-list li a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to UlyWeb Scripts Portal</h1>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>
+        This site hosts useful scripts and automation tools maintained by the UlyWeb community. Whether you’re on Windows or macOS, you’ll find powerful utilities to back up, manage, or automate your daily tasks. Check back regularly for updates and new tools!
+      </p>
+    </section>
+
+    <section class="downloads">
+      <h2>Available Downloads</h2>
+      <ul class="file-list">
+        <li>
+          <strong>WinBackup2Box</strong><br/>
+          <a href="https://raw.githubusercontent.com/ulyweb/scripts/refs/heads/main/box/OS/win/winBackup2box.ps1" download="WinBackup2Box.ps1">Download PowerShell Script</a>
+        </li>
+        <li>
+          <strong>Backup Your Data to Box.app</strong><br/>
+          <a href="https://github.com/ulyweb/scripts/archive/refs/heads/main.zip" download="Backup Your Data to Box.app.zip">Download macOS App (Zip)</a><br/>
+          <small>(Download the repo as ZIP and extract the app inside: <code>box/OS/mac/Backup Your Data to Box.app</code>)</small>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 UlyWeb. All rights reserved.
+  </footer>
+</body>
+</html>

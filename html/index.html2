@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UlyWeb Scripts Portal</title>
+  <style>
+    :root {
+      --primary-color: #004a99;
+      --secondary-color: #0078d4;
+      --bg-color: #f4f7fa;
+      --card-bg: #ffffff;
+      --text-color: #333;
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 3rem 1rem;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      animation: slideDown 1s ease-out;
+    }
+
+    main {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem 1rem;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    section.intro {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    section.intro p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    section.downloads h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--primary-color);
+    }
+
+    ul.file-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    ul.file-list li {
+      background: var(--card-bg);
+      border: 1px solid #ddd;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    ul.file-list li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    ul.file-list li strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    ul.file-list li a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--primary-color);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color var(--transition-speed);
+    }
+
+    ul.file-list li a:hover {
+      background-color: var(--secondary-color);
+    }
+
+    ul.file-list li small {
+      display: block;
+      margin-top: 0.75rem;
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #888;
+      font-size: 0.9rem;
+      background-color: #eaeef3;
+      margin-top: 4rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to UlyWeb Scripts Portal</h1>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>
+        Explore powerful, easy-to-use scripts for automating your daily tasks on Windows and macOS. Whether you're backing up data to Box, deploying tools, or learning scripting, you're in the right place. This portal offers curated downloads for seamless productivity.
+      </p>
+    </section>
+
+    <section class="downloads">
+      <h2>Available Downloads</h2>
+      <ul class="file-list">
+        <li>
+          <strong>WinBackup2Box</strong>
+          <a href="https://raw.githubusercontent.com/ulyweb/scripts/refs/heads/main/box/OS/win/winBackup2box.ps1" download="WinBackup2Box.ps1">Download Script</a>
+        </li>
+        <li>
+          <strong>Backup Your Data to Box.app</strong>
+          <a href="https://github.com/ulyweb/scripts/archive/refs/heads/main.zip" download="Backup-Your-Data-to-Box.zip">Download macOS App</a>
+          <small>(Extract and find the app inside <code>box/OS/mac/</code>)</small>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 UlyWeb. All rights reserved.
+  </footer>
+</body>
+</html>
